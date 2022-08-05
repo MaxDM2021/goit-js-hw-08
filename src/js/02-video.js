@@ -10,15 +10,15 @@ const iframe = document.querySelector('#vimeo-player');
 
 const player = new Player(iframe);
 
-const getCurrentTime = localStorage.getItem(STORAGE_KEY);
-
-
-function onPlay({seconds}) {
-localStorage.getItem(LOCALSTORAGE_KEY, seconds)
+const getCurrentTime = localStorage.getItem(LOCALSTORAGE_KEY);
 
 if (getCurrentTime) {
     player.setCurrentTime(getCurrentTime);
 }
+
+function onPlay({seconds}) {
+localStorage.getItem(LOCALSTORAGE_KEY, seconds)
+
 
 }
 player.on('timeupdate', throttle(onPlay, 1000));
