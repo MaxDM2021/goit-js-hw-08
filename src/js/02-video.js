@@ -1,41 +1,30 @@
 
 import Player from '@vimeo/player';
+import '../css/common.css';
 import throttle from 'lodash.throttle';
 
-const STORAGE_KEY = "videoplayer-current-time"
+const LOCALSTORAGE_KEY = "feedback-form-state";
 
 
-const iframe = document.querySelector('iframe');
+const iframe = document.querySelector('#vimeo-player');
 
-const player = Player(iframe);
+const player = new Player(iframe);
 
-player.on('timeupdate', throttle(onPlay, 1000));
+const getCurrentTime = localStorage.getItem(STORAGE_KEY);
 
-function onPlay(currentTime) {
-localStorage.getItem(STORAGE_KEY, currentTime)
 
+function onPlay({seconds}) {
+localStorage.getItem(LOCALSTORAGE_KEY, seconds)
+
+if (getCurrentTime) {
+    player.setCurrentTime(getCurrentTime);
 }
 
-player.setCurrentTime(localStorage.getItem(STORAGE_KEY));
-
-player.getVideoTitle().then(function(title) {
-    console.log('title:', title);
-});
+}
+player.on('timeupdate', throttle(onPlay, 1000));
 
 
 
 
 
-// const player = new Player(iframe);
 
-// document.addEventListener("DOMContentLoaded", (evt) => {
-//     // const message = evt.target.value;
-//     // const message = player.setCurrentTime(evt);
-//     localStorage.setItem(STORAGE_KEY, evt)
-//    }); 
-
-
-
-
-// player.setCurrentTime(value),
-// localeStorage.getItem(STORAGE_KEY, player )
