@@ -10,13 +10,25 @@ form.addEventListener('input', throttle(onInputForm, 500));
 form.addEventListener('submit', onSubmitForm);
 
 updateInputForm();
+initForm();
 
 function onInputForm(evt) {
-  evt.preventDefault();
   formObject[evt.target.name] = evt.target.value;
-
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formObject));
 }
+
+function initForm() {
+  let persistedFilters = localStorage.getItem(STORAGE_KEY)
+  if (persistedFilters) {
+    persistedFilters = JSON.parse(persistedFilters);
+   Object.entries(persistedFilters).forEach (([name, value]) => {
+    formObject[name] = value;
+   form.elements[name].value = value;
+   });
+  }
+}
+
+
 
 function onSubmitForm(evt) {
   evt.preventDefault();
