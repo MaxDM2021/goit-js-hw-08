@@ -13,6 +13,8 @@ const player = new Player(iframe);
 const getCurrentTime = localStorage.getItem(LOCALSTORAGE_KEY);
 
 if (getCurrentTime) {
+
+    // .setCurrentTime - фиксирует плеер на том-же месте
     player.setCurrentTime(getCurrentTime);
 }
 
