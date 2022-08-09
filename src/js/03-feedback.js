@@ -9,7 +9,7 @@ let formObject = {};
 form.addEventListener('input', throttle(onInputForm, 500));
 form.addEventListener('submit', onSubmitForm);
 
-updateInputForm();
+// updateInputForm();
 initForm();
 
 function onInputForm(evt) {
@@ -28,6 +28,16 @@ function initForm() {
   }
 }
 
+// function updateInputForm() {
+//   // const saveForm = localStorage.getItem(STORAGE_KEY);
+//   const saveFormPars = JSON.parse(saveForm);
+ 
+//   if(saveForm) {
+//    form.elements.email.value = saveFormPars.email || '';
+//    form.elements.message.value = saveFormPars.message || '';
+//   };
+//  };
+ 
 
 
 function onSubmitForm(evt) {
@@ -41,19 +51,11 @@ function onSubmitForm(evt) {
   if (email.value === '' || message.value === '') {
     return alert('Пожалуйста, заполните пустые строки!');
   }
+  formObject = {};
   console.log("Отправляем форму: ", formData);
   localStorage.removeItem(STORAGE_KEY);
   evt.currentTarget.reset();
 }
 
-function updateInputForm() {
- const saveForm = localStorage.getItem(STORAGE_KEY);
- const saveFormPars = JSON.parse(saveForm);
-
- if(saveForm) {
-  form.elements.email.value = saveFormPars.email || '';
-  form.elements.message.value = saveFormPars.message || '';
- };
-};
 
 
