@@ -18,11 +18,16 @@ if (getCurrentTime) {
     player.setCurrentTime(getCurrentTime);
 }
 
+player.on('timeupdate', throttle(onPlay, 1000));
+
 function onPlay({seconds}) {
 localStorage.setItem(LOCALSTORAGE_KEY, seconds)
 
+console.log(onPlay);
 }
-player.on('timeupdate', throttle(onPlay, 1000));
+
+
+
 
 
 
